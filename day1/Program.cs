@@ -10,9 +10,8 @@ namespace Day1
         static void Main(string[] args)
         {
             var assembly = Assembly.GetExecutingAssembly();
-            var inputs =
-                from line in AocUtils.AocUtils.ReadLinesFromAssemblyResource(assembly, "day1.input.txt")
-                select int.Parse(line);
+            var inputs = AocUtils.AocUtils.ReadLinesFromAssemblyResource(assembly, "day1.input.txt")
+                .Select(int.Parse);
 
             Part1(inputs);
             Part2(inputs);
@@ -39,10 +38,9 @@ namespace Day1
 
         static IEnumerable<int> SumsOfTriplets(IEnumerable<int> input)
         {
-            var slidingWindow = input.Zip(input.Skip(1))
-                .Zip(input.Skip(2), (firstPair, third) => (first: firstPair.First, second: firstPair.Second, third));
-            return from triplet in slidingWindow
-                   select triplet.first + triplet.second + triplet.third;
+            return input.Zip(input.Skip(1))
+                .Zip(input.Skip(2), (firstPair, third) => (first: firstPair.First, second: firstPair.Second, third))
+                .Select(triplet => triplet.first + triplet.second + triplet.third);
         }
     }
 }
