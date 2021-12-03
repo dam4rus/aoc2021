@@ -28,19 +28,21 @@ namespace Day1
 
         static void Part2(IEnumerable<int> inputs)
         {
-            var increaseCount = SumsOfTriplets(inputs)
-                .Zip(SumsOfTriplets(inputs.Skip(1)))
+            var sumOfTriplets = SumsOfTriplets(inputs);
+            var increaseCount = sumOfTriplets
+                .Zip(sumOfTriplets.Skip(1))
                 .Where(tripletSums => tripletSums.Second > tripletSums.First)
                 .Count();
 
             Console.WriteLine("Increase count = {0}", increaseCount);
         }
 
-        static IEnumerable<int> SumsOfTriplets(IEnumerable<int> input)
+        static List<int> SumsOfTriplets(IEnumerable<int> input)
         {
             return input.Zip(input.Skip(1))
                 .Zip(input.Skip(2), (firstPair, third) => (first: firstPair.First, second: firstPair.Second, third))
-                .Select(triplet => triplet.first + triplet.second + triplet.third);
+                .Select(triplet => triplet.first + triplet.second + triplet.third)
+                .ToList();
         }
     }
 }
