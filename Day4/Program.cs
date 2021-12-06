@@ -127,8 +127,6 @@ namespace Day4
             yield return boardParameters;
         }
 
-
-
         List<int> numbersToDraw;
         List<Board> boards;
     }
